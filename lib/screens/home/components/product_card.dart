@@ -34,7 +34,9 @@ class ProductCard extends StatelessWidget {
                     color: kSecondaryColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: Image.asset(product.images[0]),
+                  child: Hero(
+                      tag: product.title,
+                      child: Image.asset(product.images[0])),
                 ),
               ),
               const SizedBox(
@@ -58,29 +60,43 @@ class ProductCard extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         color: kPrimaryColor),
                   ),
-                  InkWell(
-                    onTap: (){},
-                    borderRadius: BorderRadius.circular(30),
-                    child: Container(
-                        alignment: Alignment.center,
-                        width: Width(28,context),
-                        height: Width(28,context),
-                        decoration: BoxDecoration(
-                            color: product.isFavourite!? kPrimaryLightColor.withOpacity(0.9)
-                                :kSecondaryColor.withOpacity(0.1),
-                            shape: BoxShape.circle),
-                        child: Icon(
-                          Icons.favorite,
-                          color:product.isFavourite!? Color(0xffff4848): Color(0xffdbdee4),
-                          size: Width(18,context),
-                        )),
-                  )
+                  FavouriteIconButton(product: product)
                 ],
               )
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class FavouriteIconButton extends StatelessWidget {
+  const FavouriteIconButton({
+    Key? key,
+    required this.product,
+  }) : super(key: key);
+
+  final Product product;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: (){},
+      borderRadius: BorderRadius.circular(30),
+      child: Container(
+          alignment: Alignment.center,
+          width: Width(28,context),
+          height: Width(28,context),
+          decoration: BoxDecoration(
+              color: product.isFavourite!? kPrimaryLightColor.withOpacity(0.9)
+                  :kSecondaryColor.withOpacity(0.1),
+              shape: BoxShape.circle),
+          child: Icon(
+            Icons.favorite,
+            color:product.isFavourite!? Color(0xffff4848): Color(0xffdbdee4),
+            size: Width(18,context),
+          )),
     );
   }
 }

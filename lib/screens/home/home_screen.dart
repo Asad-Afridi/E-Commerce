@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/enums.dart';
+import 'package:e_commerce_app/screens/favourite_items/favourite_items_screen.dart';
 import 'package:e_commerce_app/screens/messages/messages_screen.dart';
 import 'package:e_commerce_app/screens/profile/components/body.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<Widget> myScreen = [HomeBody(), ProfileBody()];
+  final List<Widget> myScreen = [HomeBody(), ProfileBody(),FavouriteScreenBody()];
 
   int index = 0;
 
@@ -53,14 +54,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
                   },
                   icon: Icon(
-                    Icons.shop,
+                   index==0 ? Icons.shop : Icons.shop_outlined,
                     color: index == 0 ? kPrimaryColor : inActiveColor,
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    index=2;
+                    setState(() {
+
+                    });
+                  },
                   icon: Icon(
-                    Icons.favorite_outline,
+                   index ==2 ? Icons.favorite : Icons.favorite_outline,
                     color: index == 2 ? kPrimaryColor : inActiveColor,
                   ),
                 ),
@@ -81,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
                   },
                   icon: Icon(
-                    Icons.person,
+                    index==1 ? Icons.person : Icons.person_outline,
                     color: index == 1 ? kPrimaryColor : inActiveColor,
                   ),
                 ),
