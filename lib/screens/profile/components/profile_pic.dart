@@ -22,6 +22,7 @@ class _ProfilePicState extends State<ProfilePic> {
 
   @override
   Widget build(BuildContext context) {
+    print("#######${UserData.image}");
     return SizedBox(
       height: 115,
       width: 115,
@@ -32,9 +33,9 @@ class _ProfilePicState extends State<ProfilePic> {
           CircleAvatar(
             backgroundColor: kPrimaryLightColor,
             backgroundImage: UserData.image == null
-                ? NetworkImage(
-                    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png')
-                : NetworkImage(UserData.image!),
+                ? AssetImage(
+                    'assets/myIcons/defaultDpPic.webp')
+                : NetworkImage(UserData.image!) as ImageProvider,
           ),
           Positioned(
             right: -12,

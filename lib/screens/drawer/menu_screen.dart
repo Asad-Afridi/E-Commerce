@@ -40,9 +40,9 @@ class _MenuScreenState extends State<MenuScreen> {
                   radius: 40,
                   backgroundColor: kPrimaryLightColor,
                   backgroundImage: UserData.image == null
-                      ? NetworkImage(
-                      'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png')
-                      : NetworkImage(UserData.image!),
+                      ? AssetImage(
+                      'assets/myIcons/defaultDpPic.webp')
+                      : NetworkImage(UserData.image!) as ImageProvider,
                 ),
               ),
               Padding(

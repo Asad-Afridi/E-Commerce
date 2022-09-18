@@ -33,7 +33,7 @@ class Body extends StatelessWidget {
           ),
           Spacer(),
           SizedBox(
-            width: height* 0.6,
+            width: height* 0.58,
             child: DefaultButton(
               press: () async{
                 await UserData.getUserData();

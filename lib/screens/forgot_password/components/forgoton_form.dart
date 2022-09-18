@@ -1,7 +1,8 @@
+import 'package:e_commerce_app/services/auth/auth_functions.dart';
+import 'package:e_commerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import '../../../components/custom_suffix_icon.dart';
 import '../../../components/default_button.dart';
-import '../../../components/form_errors.dart';
 import '../../../components/no_account_text.dart';
 import '../../../constant.dart';
 import '../../../size_config.dart';
@@ -16,7 +17,7 @@ class ForgotPassForm extends StatefulWidget {
 class _ForgotPassFormState extends State<ForgotPassForm> {
   final _formKey = GlobalKey<FormState>();
   String? email;
-  final  List<String> errors = [];
+  var _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,34 +27,13 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
       child: Column(
         children: [
           TextFormField(
-            onSaved: (newValue) => email = newValue,
-            onChanged: (value) {
-              if (value.isNotEmpty && errors.contains(kEmailNullError)) {
-                setState(() {
-                  errors.remove(kEmailNullError);
-                });
-              } else if (emailValidatorRegExp.hasMatch(value) &&
-                  errors.contains(kInvalidEmailError)) {
-                setState(
-                      () {
-                    errors.remove(kInvalidEmailError);
-                  },
-                );
-              }
-            },
+            controller: _emailController,
+            onChanged: (newValue) => email = newValue,
             validator: (value) {
-              if (value!.isEmpty && !errors.contains(kEmailNullError)) {
+              if (value!.isEmpty) {
                 setState((){
-                  errors.add(kEmailNullError);
+                 Utils.flushBarErrorMessage(context: context,message: kEmailNullError);
                 });
-                return "";
-              } else if (!emailValidatorRegExp.hasMatch(value) &&
-                  !errors.contains(kInvalidEmailError)) {
-                setState(
-                      () {
-                    errors.add(kInvalidEmailError);
-                  },
-                );
                 return "";
               }
               return null;
@@ -72,14 +52,15 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
           SizedBox(
             height: getProportionateHeight(20,context),
           ),
-          FormError(errors: errors),
           SizedBox(
             height: height * 0.1,
           ),
           DefaultButton(
               press: () {
                 if (_formKey.currentState!.validate()) {
-
+                  if (email!=null)
+                    AuthServices.forgotPassword(email!,context);
+                    _emailController.clear();
                 }
                 ;
               },

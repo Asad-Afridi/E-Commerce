@@ -2,7 +2,7 @@
 import 'package:e_commerce_app/models/userModel/user.dart';
 import 'package:e_commerce_app/routes.dart';
 import 'package:e_commerce_app/screens/drawer/home_view.dart';
-import 'package:e_commerce_app/screens/sign_in/sign_in_screen.dart';
+import 'package:e_commerce_app/screens/splash/splash_screen.dart';
 import 'package:e_commerce_app/themes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "E-Commerce App",
       theme: theme(),
-      initialRoute:FirebaseAuth.instance.currentUser!=null? HomeView.routName: SignInScreen.routeName,
+      initialRoute:FirebaseAuth.instance.currentUser!=null? HomeView.routName: SplashScreen.routeName,
       routes: routes,
     );
   }

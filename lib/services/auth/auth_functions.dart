@@ -30,7 +30,7 @@ class AuthServices {
         'phoneNumber': phoneNumber,
         'address': address,
         'rememberMe': false,
-        'userImage':'',
+        'userImage':null,
       });
       if (firstName != null)
         Navigator.pushNamedAndRemoveUntil(
@@ -117,5 +117,15 @@ class AuthServices {
 
   verificationCompleted(PhoneAuthCredential credential) async {
     await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+
+  static forgotPassword(String email,BuildContext context)async{
+        await FirebaseAuth.instance.sendPasswordResetEmail(email: email).then((value){
+          Utils.flushBarErrorMessage(context: context,message:'We have send you email to recover password, please check your email');
+        }).onError((error, stackTrace){
+          Utils.flushBarErrorMessage(context: context,message: error.toString());
+        });
+        print(email);
   }
 }
